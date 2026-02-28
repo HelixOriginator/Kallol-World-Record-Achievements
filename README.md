@@ -1,6 +1,4 @@
-Here is the corrected and updated README with **75+ governance frameworks** properly reflected and fully aligned for indexing clarity.
 
----
 
 # Kallol World Record Achievements
 
