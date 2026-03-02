@@ -14,8 +14,8 @@
     --bg: #04060f;
     --bg2: #080c1a;
     --bg3: #0c1122;
-    --text: #e8e0cc;
-    --text-dim: #7a7060;
+    --text: #f0eadc;
+    --text-dim: #b8a888;
     --border: rgba(212,168,67,0.18);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,8 +62,216 @@
   .stat-num { display: block; font-family: 'Cinzel Decorative', serif; font-size: clamp(30px, 4.5vw, 52px);
     font-weight: 700; color: var(--gold); line-height: 1; text-shadow: 0 0 30px rgba(212,168,67,0.4); }
   .stat-label { display: block; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px;
-    color: var(--text-dim); text-transform: uppercase; margin-top: 7px; }
+    color: #a89878; text-transform: uppercase; margin-top: 7px; }
 
+  /* ===== INVITATION SUMMARY SECTION ===== */
+  .inv-section {
+    position: relative; z-index: 10;
+    max-width: 900px; margin: 0 auto;
+    padding: 56px 28px 20px;
+    text-align: center;
+    animation: fadeDown 1s 0.7s ease both;
+  }
+
+  .inv-summary {
+    margin-bottom: 40px;
+  }
+
+  .inv-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 2vw, 21px);
+    color: #c8bda0;
+    line-height: 1.75;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .inv-tagline strong { color: var(--gold-light); font-style: normal; font-weight: 600; }
+
+  .inv-tagline2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 1.9vw, 20px);
+    color: #a09070;
+    line-height: 1.75;
+    font-style: italic;
+  }
+  .inv-tagline2 strong { color: var(--gold); font-style: normal; font-weight: 600; }
+
+  .inv-btn-wrap {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  .inv-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(135deg, rgba(212,168,67,0.12) 0%, rgba(212,168,67,0.04) 50%, rgba(42,106,191,0.08) 100%);
+    border: 1px solid rgba(212,168,67,0.45);
+    padding: 22px 36px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 30px rgba(212,168,67,0.08), inset 0 0 30px rgba(212,168,67,0.04);
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .inv-btn:hover {
+    transform: translateY(-4px) scale(1.015);
+    border-color: rgba(212,168,67,0.75);
+    box-shadow: 0 12px 50px rgba(212,168,67,0.22), 0 0 60px rgba(212,168,67,0.12), inset 0 0 40px rgba(212,168,67,0.08);
+  }
+
+  .inv-btn-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,168,67,0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .inv-btn:hover .inv-btn-glow { opacity: 1; }
+
+  .inv-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .inv-btn-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 0 12px rgba(212,168,67,0.6));
+    flex-shrink: 0;
+    position: relative; z-index: 1;
+  }
+
+  .inv-btn-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    flex: 1;
+    position: relative; z-index: 1;
+  }
+
+  .inv-btn-label {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(11px, 1.8vw, 14px);
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+  }
+
+  .inv-btn-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .inv-btn-arrow {
+    font-size: 22px;
+    color: var(--gold);
+    transition: transform 0.3s;
+    position: relative; z-index: 1;
+    flex-shrink: 0;
+  }
+  .inv-btn:hover .inv-btn-arrow { transform: translateX(6px); }
+
+  /* MODAL */
+  .inv-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(4,6,15,0.97);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    flex-direction: column;
+    gap: 0;
+    backdrop-filter: blur(8px);
+  }
+  .inv-modal-overlay.open { display: flex; }
+
+  .inv-modal-inner {
+    position: relative;
+    max-width: 680px;
+    width: 100%;
+    animation: fadeDown 0.4s ease both;
+  }
+
+  .inv-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .inv-modal-badge {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 3px;
+  }
+
+  .inv-modal-close {
+    background: none;
+    border: 1px solid rgba(212,168,67,0.35);
+    color: var(--gold);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .inv-modal-close:hover { background: rgba(212,168,67,0.1); }
+
+  .inv-modal-img {
+    width: 100%;
+    border: 2px solid rgba(212,168,67,0.4);
+    box-shadow: 0 0 100px rgba(212,168,67,0.25), 0 0 30px rgba(212,168,67,0.1);
+    display: block;
+    transition: opacity 0.3s;
+  }
+
+  .inv-modal-tabs {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    justify-content: center;
+  }
+
+  .inv-tab-btn {
+    background: rgba(212,168,67,0.08);
+    border: 1px solid rgba(212,168,67,0.25);
+    color: var(--gold);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 8px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .inv-tab-btn:hover, .inv-tab-btn.active {
+    background: rgba(212,168,67,0.18);
+    border-color: rgba(212,168,67,0.55);
+  }
+
+  /* rest of original styles */
   .gem-divider { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 44px 24px 24px; position: relative; z-index: 2; }
   .gem-line { flex: 1; max-width: 220px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim)); }
   .gem-line.r { background: linear-gradient(90deg, var(--gold-dim), transparent); }
@@ -84,7 +292,7 @@
   .zenodo-strip { max-width: 1320px; margin: 0 auto 24px; padding: 0 24px; position: relative; z-index: 2; }
   .zenodo-box { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;
     border: 1px solid var(--border); padding: 16px 26px; background: rgba(212,168,67,0.03); }
-  .zenodo-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--text-dim); }
+  .zenodo-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; color: #a89878; }
   .zenodo-link { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--gold); text-decoration: none; }
   .zenodo-link:hover { opacity: 0.75; }
 
@@ -129,10 +337,10 @@
   .card-icon { font-size:36px; margin-bottom:14px; display:block; filter:drop-shadow(0 0 8px rgba(212,168,67,0.3)); position:relative;z-index:1; }
   .card-title { font-family:'Cinzel Decorative',serif; font-size:clamp(12px,1.5vw,15px); font-weight:700;
     color:var(--gold-light); margin-bottom:10px; line-height:1.3; position:relative;z-index:1; }
-  .card-desc { font-family:'Cormorant Garamond',serif; font-size:15.5px; color:var(--text-dim); line-height:1.65;
+  .card-desc { font-family:'Cormorant Garamond',serif; font-size:15.5px; color:#c8b890; line-height:1.65;
     margin-bottom:18px; position:relative;z-index:1; }
   .card-hl { font-family:'Space Mono',monospace; font-size:8.5px; letter-spacing:1px; color:var(--gold);
-    opacity:0.65; margin-bottom:18px; display:block; position:relative;z-index:1; }
+    opacity:0.85; margin-bottom:18px; display:block; position:relative;z-index:1; }
 
   .btn { display:inline-flex; align-items:center; gap:8px; font-family:'Space Mono',monospace;
     font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--bg);
@@ -147,7 +355,7 @@
   .cred:hover { border-color:rgba(212,168,67,0.4); }
   .cred-icon { font-size:30px; margin-bottom:11px; }
   .cred-title { font-family:'Cinzel Decorative',serif; font-size:12px; color:var(--gold); margin-bottom:8px; line-height:1.3; }
-  .cred-sub { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; color:var(--text-dim); line-height:1.5; }
+  .cred-sub { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; color:#a89878; line-height:1.5; }
 
   footer { position:relative;z-index:2; text-align:center; padding:64px 20px 44px;
     border-top:1px solid var(--border); background:linear-gradient(0deg,rgba(212,168,67,0.05) 0%,transparent 100%); }
@@ -194,6 +402,40 @@
     <div class="stat"><span class="stat-num">75+</span><span class="stat-label">Policy &amp;<br>Research Articles</span></div>
   </div>
 </header>
+
+<!-- ===== INVITATION SUMMARY + BUTTON ===== -->
+<section class="inv-section">
+  <div class="inv-summary">
+    <p class="inv-tagline">A self-taught independent researcher with <strong>zero institutional backing</strong> has registered 256 DOIs, authored 219+ original concepts, and is preparing a <strong>Limca Book of Records submission</strong> — redefining what one determined mind can achieve.</p>
+    <p class="inv-tagline2">Now officially invited to the <strong>Government of India's National IP Awards & Conference</strong>, this journey stands as living proof that intellectual sovereignty belongs to those bold enough to claim it.</p>
+  </div>
+  <div class="inv-btn-wrap">
+    <button class="inv-btn" id="openInvBtn">
+      <span class="inv-btn-glow"></span>
+      <span class="inv-btn-icon">🏛️</span>
+      <span class="inv-btn-text">
+        <span class="inv-btn-label">VIEW OFFICIAL INVITATION</span>
+        <span class="inv-btn-sub">National IP Awards &amp; Conference &nbsp;·&nbsp; Bharat Mandapam, New Delhi &nbsp;·&nbsp; 9th March 2026</span>
+      </span>
+      <span class="inv-btn-arrow">⟶</span>
+    </button>
+  </div>
+</section>
+
+<!-- INVITATION MODAL -->
+<div class="inv-modal-overlay" id="invModal">
+  <div class="inv-modal-inner">
+    <div class="inv-modal-header">
+      <span class="inv-modal-badge">🏆 &nbsp;GOVERNMENT OF INDIA — OFFICIAL INVITATION</span>
+      <button class="inv-modal-close" id="closeModal">✕ CLOSE</button>
+    </div>
+    <img class="inv-modal-img" id="invModalImg" src="Invitation.png" alt="National IP Awards Official Invitation"/>
+    <div class="inv-modal-tabs">
+      <button class="inv-tab-btn active" id="tabInv">📜 &nbsp;Invitation Letter</button>
+      <button class="inv-tab-btn" id="tabAgenda">📋 &nbsp;Event Agenda</button>
+    </div>
+  </div>
+</div>
 
 <!-- WORLD FIRSTS BAR -->
 <div class="gem-divider"><div class="gem-line"></div><div class="gem"></div><div class="gem-line r"></div></div>
@@ -254,7 +496,7 @@
     <span class="badge b-gold">World First · 23+ Reckoners &amp; Growing</span>
     <span class="card-icon">🧮</span>
     <div class="card-title">Ready Reckoner Idea Lab — World's First Evidence-Based Reckoner Suite (23+)</div>
-    <div class="card-desc">The world's first and most comprehensive suite of 23+ evidence-based ready reckoners by a solo independent researcher — 5,000+ verified downloads across Zenodo and SSRN. Spanning culture, law, policy, governance, economics, interfaith dialogue, and civic awareness: includes Sanatana Samyata · Roots &amp; Wings · Debunking Civilizational Myths (90 myths) · Sanatana Darshana · Legal Literacy Framework (New Criminal Laws 2024) · Safeguarding Democratic Truth · Karma Index · Bharat Ekta Mission · Road Safety &amp; Justice Reckoner · Responsible Modern Citizenship · Ready Reckoner on Politicians (Global Format) · EchoShield Nexus AI Policing · Tawhid-Vedanta Bridge · GREED Stack · Ghar Se Shakti · Quranic Ready Reckoner · PM Narendra Modi · CM Yogi Adityanath · People's Political Dictionary · Constitutional Dictionary for Common People · and growing.</div>
+    <div class="card-desc">The world's first and most comprehensive suite of 23+ evidence-based ready reckoners by a solo independent researcher — 5,000+ verified downloads across Zenodo and SSRN. Spanning culture, law, policy, governance, economics, interfaith dialogue, and civic awareness.</div>
     <span class="card-hl">↳ 23+ EVIDENCE-BASED RECKONERS · 90+ MYTHS DEBUNKED · 5,000+ DOWNLOADS · CULTURE · LAW · GOVERNANCE · POLICY · ECONOMICS</span>
     <span class="btn">Explore Full Collection <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -263,7 +505,7 @@
     <span class="badge b-gold">World First</span>
     <span class="card-icon">🇮🇳</span>
     <div class="card-title">World's First Ready Reckoner on PM Narendra Modi</div>
-    <div class="card-desc">Pioneer evidence-based ready reckoner quantifying PM Modi's governance impact — Viksit Bharat 2047 vision, Digital India architecture, flagship schemes, and civilisational transformation. No global precedent.</div>
+    <div class="card-desc">Pioneer evidence-based ready reckoner quantifying PM Modi's governance impact — Viksit Bharat 2047 vision, Digital India architecture, flagship schemes, and civilisational transformation.</div>
     <span class="card-hl">↳ GOVERNANCE DOCTRINE · ECONOMIC TRANSFORMATION · DIGITAL INDIA</span>
     <span class="btn">View Reckoner <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -272,7 +514,7 @@
     <span class="badge b-gold">World First · Civic Empowerment</span>
     <span class="card-icon">📜</span>
     <div class="card-title">World's First People's Political Dictionary</div>
-    <div class="card-desc">300+ political and constitutional terms explained in plain language for common citizens — A to Z, across 9 categories covering Governance, Law, Elections, Constitution, Economy and more. A powerful counter-narrative tool demystifying democracy for every Indian.</div>
+    <div class="card-desc">300+ political and constitutional terms explained in plain language for common citizens — A to Z, across 9 categories covering Governance, Law, Elections, Constitution, Economy and more.</div>
     <span class="card-hl">↳ 300+ TERMS · 26 ALPHABET SECTIONS · 9 CATEGORIES · COUNTER-NARRATIVE · CIVIC LITERACY</span>
     <span class="btn">Explore Dictionary <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -281,8 +523,8 @@
     <span class="badge b-blue">World First · Constitutional Literacy</span>
     <span class="card-icon">⚖️</span>
     <div class="card-title">World's First Constitutional Dictionary for Common People</div>
-    <div class="card-desc">Simplifying the Constitution — one Article, one term, one citizen at a time. Covers key Articles (14, 15, 19, 21, 32, 51A), fundamental rights, writs, and legal terms in plain language. Empowers citizens to understand and defend their constitutional rights against misinformation.</div>
-    <span class="card-hl">↳ ARTICLES 14·15·19·21·32·51A · FUNDAMENTAL RIGHTS · WRITS · PLAIN LANGUAGE · COUNTER-NARRATIVE</span>
+    <div class="card-desc">Simplifying the Constitution — one Article, one term, one citizen at a time. Covers key Articles (14, 15, 19, 21, 32, 51A), fundamental rights, writs, and legal terms in plain language.</div>
+    <span class="card-hl">↳ ARTICLES 14·15·19·21·32·51A · FUNDAMENTAL RIGHTS · WRITS · PLAIN LANGUAGE</span>
     <span class="btn">Explore Dictionary <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
 
@@ -299,7 +541,7 @@
     <span class="badge b-violet">World First · Ethical AI</span>
     <span class="card-icon">⚛️</span>
     <div class="card-title">Quantum Karma Weaver — Ethical Simulation Framework</div>
-    <div class="card-desc">World's first framework merging ancient Karma philosophy with quantum computational ethics. An AI simulation applying Vedantic principles to decision-science. Quantum-inspired modelling + Sanatan philosophy — no global precedent.</div>
+    <div class="card-desc">World's first framework merging ancient Karma philosophy with quantum computational ethics. An AI simulation applying Vedantic principles to decision-science.</div>
     <span class="card-hl">↳ QUANTUM ETHICS · KARMA AI · SANATAN PRINCIPLES · ADAPTIVE SYSTEMS</span>
     <span class="btn">Explore Framework <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -308,7 +550,7 @@
     <span class="badge b-blue">World First · Policy Architecture</span>
     <span class="card-icon">🏛️</span>
     <div class="card-title">Viksit Bharat 2047 Governance Architecture</div>
-    <div class="card-desc">World's first independently authored integrated civilisational governance architecture for India's 2047 vision. AI-enabled policy systems, digital sovereignty frameworks, citizen data vaults — solo-authored blueprint.</div>
+    <div class="card-desc">World's first independently authored integrated civilisational governance architecture for India's 2047 vision. AI-enabled policy systems, digital sovereignty frameworks, citizen data vaults.</div>
     <span class="card-hl">↳ AI-ENABLED POLICY · DIGITAL SOVEREIGNTY · ARTHASHASTRA-MODERN</span>
     <span class="btn">View Architecture <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -326,7 +568,7 @@
     <span class="badge b-crimson">Intellectual Sovereignty · Father of Concepts</span>
     <span class="card-icon">💡</span>
     <div class="card-title">Father of Original Concepts</div>
-    <div class="card-desc">Curated intellectual sovereignty hub presenting original first-principles frameworks across civilisational governance, constitutional thought, AI and democracy, Sanatan economics, and digital scholarship — establishing Kallol Chakrabarti as originator of 190+ novel concepts.</div>
+    <div class="card-desc">Curated intellectual sovereignty hub presenting original first-principles frameworks across civilisational governance, constitutional thought, AI and democracy, Sanatan economics, and digital scholarship.</div>
     <span class="card-hl">↳ 190+ ORIGINAL CONCEPTS · FIRST-PRINCIPLES · INTELLECTUAL SOVEREIGNTY</span>
     <span class="btn">Explore Concepts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -335,7 +577,7 @@
     <span class="badge b-amber">251+ DOIs · Pioneer Archive</span>
     <span class="card-icon">🔬</span>
     <div class="card-title">Pioneer Frameworks Archive</div>
-    <div class="card-desc">Archive of first-of-its-kind research featuring 190+ original frameworks and 251+ DOIs bridging Vedic ethics, AI governance, and social policy. Key works include the Bharat Ethics Engine and Dharma-AI nexus frameworks.</div>
+    <div class="card-desc">Archive of first-of-its-kind research featuring 190+ original frameworks and 251+ DOIs bridging Vedic ethics, AI governance, and social policy.</div>
     <span class="card-hl">↳ 190+ FRAMEWORKS · 251+ DOIs · VEDIC ETHICS + AI GOVERNANCE</span>
     <span class="btn">View Archive <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -351,7 +593,7 @@
     <span class="badge b-emerald">Research Portfolio · National IP Shortlistee</span>
     <span class="card-icon">📊</span>
     <div class="card-title">PMO Research Portfolio — Independent Policy Analysis</div>
-    <div class="card-desc">Comprehensive independent research portfolio encompassing 75+ articles on governance integrity, misinformation analysis, and strategic national frameworks. Features the Fake Agenda Detection Algorithm and Bharatiya Governance Matrix. Shortlisted for National IP Award. Downloads: Zenodo 3,950 + SSRN 732.</div>
+    <div class="card-desc">Comprehensive independent research portfolio encompassing 75+ articles on governance integrity, misinformation analysis, and strategic national frameworks. Features the Fake Agenda Detection Algorithm and Bharatiya Governance Matrix. Shortlisted for National IP Award.</div>
     <span class="card-hl">↳ 75+ ARTICLES · NATIONAL IP AWARD SHORTLIST · ORCID: 0009-0007-4971-8936</span>
     <span class="btn">View Portfolio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -360,7 +602,7 @@
     <span class="badge b-blue">Research · Governance</span>
     <span class="card-icon">🗺️</span>
     <div class="card-title">Bharat Governance Transformation 2014–2025</div>
-    <div class="card-desc">Evidence-based analysis of India's decade-long governance transformation: Aadhaar, UPI, digital public infrastructure, government schemes — structured documentation of Bharat's structural reforms.</div>
+    <div class="card-desc">Evidence-based analysis of India's decade-long governance transformation: Aadhaar, UPI, digital public infrastructure, government schemes.</div>
     <span class="card-hl">↳ AADHAAR · UPI · DIGITAL PUBLIC INFRASTRUCTURE · POLICY ANALYSIS</span>
     <span class="btn">Explore Research <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -369,53 +611,17 @@
     <span class="badge b-crimson">Leadership Documentation · First-of-Kind</span>
     <span class="card-icon">🌟</span>
     <div class="card-title">Hemanta Sharma — 100 Transformational Achievements</div>
-    <div class="card-desc">First-of-its-kind evidence-based catalogue of 100 transformational achievements of a sitting public administrator — pioneering a new methodology for leadership impact documentation in Indian governance.</div>
+    <div class="card-desc">First-of-its-kind evidence-based catalogue of 100 transformational achievements of a sitting public administrator — pioneering a new methodology for leadership impact documentation.</div>
     <span class="card-hl">↳ 100 VERIFIED ACHIEVEMENTS · NOVEL METHODOLOGY · LEADERSHIP IMPACT</span>
     <span class="btn">View Achievements <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/pm-kisan-policy-clarification-framework/" target="_blank" class="card">
-    <span class="badge b-emerald">Open Source · Policy</span>
-    <span class="card-icon">🌾</span>
-    <div class="card-title">PM-KISAN Policy Clarification Framework</div>
-    <div class="card-desc">Open-source structured clarification framework for PM-KISAN (₹6,000 annual income support). Eligibility criteria, exclusion categories, Direct Benefit Transfer architecture — making policy accessible.</div>
-    <span class="card-hl">↳ DBT ARCHITECTURE · ELIGIBILITY FRAMEWORK · CITIZEN ACCESS</span>
-    <span class="btn">View Framework <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/pmay-policy-clarification-ai/" target="_blank" class="card">
-    <span class="badge b-teal">AI-Powered · Policy</span>
-    <span class="card-icon">🏠</span>
-    <div class="card-title">PMAY Policy Clarification AI</div>
-    <div class="card-desc">Open-source AI-powered clarification system for Pradhan Mantri Awas Yojana. Structured eligibility breakdowns, documented clarifications, and public understanding tools for India's flagship housing scheme.</div>
-    <span class="card-hl">↳ PMAY · AI CLARIFICATION · HOUSING SCHEME · PUBLIC GOOD</span>
-    <span class="btn">View AI System <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/india-reservation-50-percent-rule/" target="_blank" class="card">
-    <span class="badge b-blue">Constitutional Research</span>
-    <span class="card-icon">⚖️</span>
-    <div class="card-title">India Reservation 50% Rule — Comprehensive Guide</div>
-    <div class="card-desc">Comprehensive guide to India's reservation framework and the 50% quota ceiling — Supreme Court judgments, constitutional provisions, state-wise data, EWS beyond the cap, political dynamics.</div>
-    <span class="card-hl">↳ SUPREME COURT · CONSTITUTIONAL LAW · EWS · STATE-WISE DATA</span>
-    <span class="btn">View Research <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/justice-surya-kant-top-20-landmark-judgments/" target="_blank" class="card">
-    <span class="badge b-blue">Constitutional Law</span>
-    <span class="card-icon">🏛️</span>
-    <div class="card-title">Justice Surya Kant — Top 20 Landmark Judgments</div>
-    <div class="card-desc">In-depth analysis of the Top 20 Supreme Court of India landmark judgments by Justice Surya Kant — constitutional rulings, criminal justice reforms, social justice outcomes, and precedent-setting decisions.</div>
-    <span class="card-hl">↳ SUPREME COURT · LANDMARK RULINGS · CONSTITUTIONAL ANALYSIS</span>
-    <span class="btn">View Analysis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
 
   <a href="https://helixoriginator.github.io/muslims-thrive-under-modi-regime-data/" target="_blank" class="card">
     <span class="badge b-gold">World First · Open Data</span>
     <span class="card-icon">📈</span>
     <div class="card-title">Muslims Thrive Under Modi — World's First Open Data Analysis</div>
-    <div class="card-desc">World's first evidence-based open-source dataset comprehensively documenting government schemes, scholarships, housing, healthcare, and financial inclusion benefiting Muslim communities under the Modi government. Counters misinformation with verified statistics — a unique contribution with no global precedent in its scope and methodology.</div>
-    <span class="card-hl">↳ WORLD FIRST · VERIFIED STATISTICS · INCLUSION DATA · OPEN DATASET · COUNTER-NARRATIVE EVIDENCE</span>
+    <div class="card-desc">World's first evidence-based open-source dataset comprehensively documenting government schemes, scholarships, housing, healthcare, and financial inclusion benefiting Muslim communities.</div>
+    <span class="card-hl">↳ WORLD FIRST · VERIFIED STATISTICS · INCLUSION DATA · OPEN DATASET</span>
     <span class="btn">View Dataset <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
 
@@ -430,7 +636,7 @@
     <span class="badge b-gold">World First · Sanatan Governance</span>
     <span class="card-icon">🕉️</span>
     <div class="card-title">Dharma-State Architecture — Sanatan Framework for Civilisational Governance</div>
-    <div class="card-desc">World's first structured repository demonstrating Sanatan Dharma as a complete civilisational governance system. Maps Arthashastra, Rajadharma, and Shukraniti onto modern institutional design — unprecedented scholarly contribution bridging ancient wisdom and contemporary governance.</div>
+    <div class="card-desc">World's first structured repository demonstrating Sanatan Dharma as a complete civilisational governance system. Maps Arthashastra, Rajadharma, and Shukraniti onto modern institutional design.</div>
     <span class="card-hl">↳ ARTHASHASTRA · RAJADHARMA · SHUKRANITI · MODERN INSTITUTIONAL MAPPING</span>
     <span class="btn">Explore Architecture <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -439,26 +645,17 @@
     <span class="badge b-gold">World First · Vedic Economics</span>
     <span class="card-icon">💰</span>
     <div class="card-title">Bharat Vikas Mandal — Vedic Economic Framework</div>
-    <div class="card-desc">World-first conceptual framework integrating Vedic economic principles with digital financial inclusion. Features the Karma Credit System and Dharma Nodes for decentralised governance — a genuinely novel synthesis.</div>
+    <div class="card-desc">World-first conceptual framework integrating Vedic economic principles with digital financial inclusion. Features the Karma Credit System and Dharma Nodes for decentralised governance.</div>
     <span class="card-hl">↳ KARMA CREDIT SYSTEM · DHARMA NODES · DECENTRALISED GOVERNANCE</span>
     <span class="btn">View Framework <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/Sanatan-State-Framework-Crowdfund/" target="_blank" class="card">
-    <span class="badge b-crimson">Citizen-Led · DeSci</span>
-    <span class="card-icon">🌐</span>
-    <div class="card-title">Sanatan State Framework — Crowdfund Initiative</div>
-    <div class="card-desc">Citizen-led crowdfunding platform to build open digital knowledge repositories rooted in Dharma-inspired governance and civilisational values — mobilising community support for DeSci research.</div>
-    <span class="card-hl">↳ DHARMA GOVERNANCE · OPEN KNOWLEDGE · CITIZEN-LED · DESCI</span>
-    <span class="btn">View Initiative <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
 
   <a href="https://helixoriginator.github.io/concept-architect/" target="_blank" class="card wide">
     <span class="badge b-violet">Intellectual Sovereignty · Concept Architect</span>
     <span class="card-icon">🧠</span>
     <div class="card-title">Concept Architect for Independent Researchers</div>
-    <div class="card-desc">The definitive platform establishing Kallol Chakrabarti's sovereign intellectual identity. Presents original first-principles frameworks spanning civilisational governance, constitutional thought, AI and democracy, Sanatan economics, and digital scholarship. A strategic public positioning hub designed to archive, protect, and present the intellectual corpus of an independent researcher who has never relied on institutional affiliation — building a globally recognised original-thinker identity from the ground up.</div>
-    <span class="card-hl">↳ INTELLECTUAL SOVEREIGNTY · FIRST-PRINCIPLES FRAMEWORKS · STRATEGIC PUBLIC POSITIONING · INDEPENDENT RESEARCHER IDENTITY</span>
+    <div class="card-desc">The definitive platform establishing Kallol Chakrabarti's sovereign intellectual identity. Original first-principles frameworks spanning civilisational governance, constitutional thought, AI and democracy, Sanatan economics, and digital scholarship.</div>
+    <span class="card-hl">↳ INTELLECTUAL SOVEREIGNTY · FIRST-PRINCIPLES FRAMEWORKS · STRATEGIC PUBLIC POSITIONING</span>
     <span class="btn">Explore Concept Architect <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
 
@@ -473,7 +670,7 @@
     <span class="badge b-violet">World First · Computational</span>
     <span class="card-icon">🧬</span>
     <div class="card-title">Architecture Genome Project</div>
-    <div class="card-desc">Models software systems as genetic structures — encodes architectural decisions into composable "genes," simulates survival under stress, enables hybrid design through architectural crossover. Novel computational metaphor.</div>
+    <div class="card-desc">Models software systems as genetic structures — encodes architectural decisions into composable "genes," simulates survival under stress, enables hybrid design through architectural crossover.</div>
     <span class="card-hl">↳ GENETIC ARCHITECTURE · STRESS SIMULATION · HYBRID DESIGN</span>
     <span class="btn">Explore Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
@@ -482,106 +679,27 @@
     <span class="badge b-amber">World First · Algorithm</span>
     <span class="card-icon">🦡</span>
     <div class="card-title">Honey Badger Algorithm (HBA) & HBR Framework</div>
-    <div class="card-desc">Official repository of the Honey Badger Algorithm and Honey Badger Resilience Framework — a novel metaheuristic optimisation algorithm developed by an independent researcher for adaptive systems.</div>
+    <div class="card-desc">Official repository of the Honey Badger Algorithm and Honey Badger Resilience Framework — a novel metaheuristic optimisation algorithm for adaptive systems.</div>
     <span class="card-hl">↳ METAHEURISTIC · OPTIMISATION · HBA · INDEPENDENT RESEARCH</span>
     <span class="btn">View Algorithm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/AI-Companions-Democracy-Synthetic-Intimacy-and-Political-Attitudes/" target="_blank" class="card">
-    <span class="badge b-violet">Theoretical · Political AI</span>
-    <span class="card-icon">🤖</span>
-    <div class="card-title">AI Companions, Democracy & Political Attitudes</div>
-    <div class="card-desc">Theoretical framework exploring how AI companions shape political attitudes, democratic trust, polarization, and civic engagement — integrating political psychology, HCI, and epistemology in a novel synthesis.</div>
-    <span class="card-hl">↳ AI DEMOCRACY · SYNTHETIC INTIMACY · POLITICAL PSYCHOLOGY</span>
-    <span class="btn">View Framework <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
 
   <a href="https://helixoriginator.github.io/national-framework-science-portfolio-kallol-chakrabarti/" target="_blank" class="card">
     <span class="badge b-teal">30+ Domains · DOI Portfolio</span>
     <span class="card-icon">🔭</span>
     <div class="card-title">National Framework Science Portfolio</div>
-    <div class="card-desc">National portfolio of DOI-registered original frameworks across 30+ domains — AI governance, quantum systems, climate resilience, defense strategy, healthcare — a monument to solo interdisciplinary research.</div>
+    <div class="card-desc">National portfolio of DOI-registered original frameworks across 30+ domains — AI governance, quantum systems, climate resilience, defense strategy, healthcare.</div>
     <span class="card-hl">↳ 30+ DOMAINS · DOI REGISTERED · AI · QUANTUM · CLIMATE · DEFENSE</span>
     <span class="btn">View Portfolio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/dead-market-economic-research-platform/" target="_blank" class="card">
-    <span class="badge b-crimson">Economic Research</span>
-    <span class="card-icon">📉</span>
-    <div class="card-title">Dead Market — Independent Economic Research Platform</div>
-    <div class="card-desc">Independent research platform exploring global market dynamics, systemic risk, behavioural finance, crypto assets, and policy impact — applying novel analytical lenses to economic phenomena.</div>
-    <span class="card-hl">↳ SYSTEMIC RISK · BEHAVIOURAL FINANCE · CRYPTO · POLICY IMPACT</span>
-    <span class="btn">Explore Platform <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
 
   <a href="https://helixoriginator.github.io/data-philanthropy-framework/" target="_blank" class="card">
     <span class="badge b-emerald">Open Framework · Public Good</span>
     <span class="card-icon">🤝</span>
     <div class="card-title">Data Philanthropy Framework</div>
-    <div class="card-desc">Open framework for ethical donation of anonymised datasets for national public good projects — legal protocols, audit methods, sovereignty protections. A novel civic-tech innovation from an independent researcher.</div>
+    <div class="card-desc">Open framework for ethical donation of anonymised datasets for national public good projects — legal protocols, audit methods, sovereignty protections.</div>
     <span class="card-hl">↳ DATA ETHICS · OPEN DATASETS · AUDIT METHODS · SOVEREIGNTY</span>
     <span class="btn">View Framework <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-</div>
-
-<!-- ===== SECTION 5: NATIONAL DATA REPOSITORIES ===== -->
-<div class="gem-divider"><div class="gem-line"></div><div class="gem"></div><div class="gem-line r"></div></div>
-<h2 class="sec-head reveal">⬡ National Data Repositories & Digital Infrastructure</h2>
-<div class="grid">
-
-  <a href="https://helixoriginator.github.io/Project-Ankitan-National-Land-Knowledge-Dispute-Resolution-Repository/" target="_blank" class="card">
-    <span class="badge b-blue">SVAMITVA Integration</span>
-    <span class="card-icon">🗾</span>
-    <div class="card-title">Project Ankitan — National Land Dispute Resolution Repository</div>
-    <div class="card-desc">Structured national repository integrating historical and transactional land data into the SVAMITVA framework — resolves title disputes, strengthens records, supports rural land ownership documentation.</div>
-    <span class="card-hl">↳ SVAMITVA · LAND TITLES · DISPUTE RESOLUTION</span>
-    <span class="btn">View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/Ayushman-Bharat-Health-Data-Intelligence-Repository-ABHDIR-/" target="_blank" class="card">
-    <span class="badge b-emerald">Health Intelligence · PMJAY</span>
-    <span class="card-icon">🏥</span>
-    <div class="card-title">Ayushman Bharat Health Data Intelligence Repository (ABHDIR)</div>
-    <div class="card-desc">Centralised health and epidemiological data repository supporting Ayushman Bharat and PMJAY — predictive disease outbreak modelling and longitudinal beneficiary wellness tracking at scale.</div>
-    <span class="card-hl">↳ PMJAY · PREDICTIVE MODELLING · EPIDEMIOLOGY</span>
-    <span class="btn">View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/atmanirbhar-makeindia-msme-cluster-database/" target="_blank" class="card">
-    <span class="badge b-amber">Atmanirbhar Bharat</span>
-    <span class="card-icon">🏭</span>
-    <div class="card-title">Atmanirbhar — MSME Cluster Performance Database</div>
-    <div class="card-desc">Digital archive of MSME cluster performance histories and supply chain provenance data supporting Atmanirbhar Bharat and Make in India — reducing investment risk through verified industrial data.</div>
-    <span class="card-hl">↳ MSME · SUPPLY CHAIN · MAKE IN INDIA · INVESTMENT RISK</span>
-    <span class="btn">View Database <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/Grassroots-Innovation-Taxonomy-Repository-NIF-Aligned-Local-Innovation-Classification/" target="_blank" class="card">
-    <span class="badge b-emerald">NIF-Aligned · Innovation</span>
-    <span class="card-icon">🌱</span>
-    <div class="card-title">Grassroots Innovation Taxonomy Repository</div>
-    <div class="card-desc">Structured taxonomy classifying undocumented grassroots innovations using National Innovation Foundation-aligned criteria — organising local solutions into a searchable national knowledge base.</div>
-    <span class="card-hl">↳ NIF ALIGNED · LOCAL INNOVATION · OPEN TAXONOMY</span>
-    <span class="btn">Explore Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/temporal-gis-india-historical-geospatial-evolution/" target="_blank" class="card">
-    <span class="badge b-teal">GIS · Historical Data</span>
-    <span class="card-icon">🌍</span>
-    <div class="card-title">Temporal GIS — India Historical Geospatial Evolution</div>
-    <div class="card-desc">Temporal GIS framework integrating historical records with modern geospatial data — visualises landscape, economic, and social change across centuries, supporting Viksit Bharat long-horizon planning.</div>
-    <span class="card-hl">↳ HISTORICAL GIS · GEOSPATIAL · LANDSCAPE CHANGE</span>
-    <span class="btn">View Framework <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-  </a>
-
-  <a href="https://helixoriginator.github.io/kallol-chakrabarti-books/" target="_blank" class="card">
-    <span class="badge b-amber">Digital Library · Solo Author</span>
-    <span class="card-icon">📕</span>
-    <div class="card-title">Kallol Chakrabarti — Digital Books Library</div>
-    <div class="card-desc">Digital library of practical wisdom — Sanatan Dharma wisdom tales, empowerment guides for homemakers, geopolitical analysis, and philosophical works — a solo author's complete literary output.</div>
-    <span class="card-hl">↳ SANATAN WISDOM · GEOPOLITICS · PHILOSOPHY · EMPOWERMENT</span>
-    <span class="btn">View Library <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
   </a>
 
 </div>
@@ -621,11 +739,13 @@
 </footer>
 
 <script>
+  // Intersection observer for reveals
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+  // Header parallax
   const hdr = document.querySelector('header');
   hdr.addEventListener('mousemove', e => {
     const r = hdr.getBoundingClientRect();
@@ -634,6 +754,49 @@
     hdr.style.background = `radial-gradient(ellipse 350px 220px at ${x}% ${y}%, rgba(212,168,67,0.10) 0%, transparent 60%), linear-gradient(180deg, rgba(212,168,67,0.07) 0%, transparent 100%)`;
   });
   hdr.addEventListener('mouseleave', () => { hdr.style.background = ''; });
+
+  // Modal logic
+  const modal = document.getElementById('invModal');
+  const modalImg = document.getElementById('invModalImg');
+  const tabInv = document.getElementById('tabInv');
+  const tabAgenda = document.getElementById('tabAgenda');
+
+  document.getElementById('openInvBtn').addEventListener('click', () => {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  tabInv.addEventListener('click', () => {
+    modalImg.src = 'Invitation.png';
+    tabInv.classList.add('active');
+    tabAgenda.classList.remove('active');
+  });
+
+  tabAgenda.addEventListener('click', () => {
+    modalImg.src = 'invitation_agenda.png';
+    tabAgenda.classList.add('active');
+    tabInv.classList.remove('active');
+  });
+
+  // Keyboard close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
 </script>
 </body>
 </html>
